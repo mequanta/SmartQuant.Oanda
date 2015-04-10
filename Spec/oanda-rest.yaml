@@ -28,8 +28,6 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-      security:
-        - oandaAccessToken: []
     post:
       parameters:
         - name: currency
@@ -268,7 +266,8 @@ paths:
   # Get transaction history
   # Get information for a transaction
   # Get full account history
-  
+security:
+  - oandaAccessToken: []
 securityDefinitions:
   oandaAccessToken:
     type: oauth2
@@ -318,4 +317,4 @@ definitions:
   Candle:
     properties:
       time:
-        type: string  
+        type: string

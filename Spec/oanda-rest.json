@@ -1,416 +1,614 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "0.0.1",
-        "title": "Oanda Rest API (Practice)"
-    },
-    "host": "api-fxpractice.oanda.com",
-    "schemes": [
-        "https"
-    ],
-    "basePath": "/v1",
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/accounts": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "username",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "accounts": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Account"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "oandaAccessToken": []
-                    }
-                ]
-            },
-            "post": {
-                "parameters": [
-                    {
-                        "name": "currency",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "username": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "string"
-                                },
-                                "accountId": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Oanda Rest API (Practice)"
+  },
+  "host": "api-fxpractice.oanda.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/v1",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/accounts": {
+      "get": {
+        "operationId": "Getccounts",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "accounts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Account"
+                  }
                 }
+              }
             }
-        },
-        "/accounts/{account_id}": {
-            "get": {
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "account_id",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "accountId": {
-                                    "type": "number",
-                                    "format": "int32"
-                                },
-                                "accountName": {
-                                    "type": "string"
-                                },
-                                "balance": {
-                                    "type": "number",
-                                    "format": "double"
-                                },
-                                "unrealizedPl": {
-                                    "type": "number",
-                                    "format": "double"
-                                },
-                                "realizedPl": {
-                                    "type": "number",
-                                    "format": "double"
-                                },
-                                "marginUsed": {
-                                    "type": "number",
-                                    "format": "double"
-                                },
-                                "marginAvail": {
-                                    "type": "number",
-                                    "format": "int64"
-                                },
-                                "openTrades": {
-                                    "type": "number",
-                                    "format": "int64"
-                                },
-                                "openOrders": {
-                                    "type": "number",
-                                    "format": "int64"
-                                },
-                                "marginRate": {
-                                    "type": "number",
-                                    "format": "double"
-                                },
-                                "accountCurrency": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
-        },
-        "/instruments": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "accountId",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "instruments",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "instruments": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Instrument"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/prices": {
-            "get": {
-                "parameters": [
-                    {
-                        "name": "instruments",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "since",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "prices": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Price"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/candles": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "properties": {
-                                "candles": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/Candle"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "instrument",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "granularity",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "count",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "start",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "candleFormat",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "includeFirst",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "dailyAlignment",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "alignmentTimezone",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "weeklyAlignment",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/accounts/{account_id}/orders": {
-            "post": {
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "account_id",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/accounts/{account_id}/orders/{order_id}": {
-            "delete": {
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "account_id",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    {
-                        "in": "path",
-                        "name": "order_id",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
+          }
         }
-    },
-    "securityDefinitions": {
-        "oandaAccessToken": {
-            "type": "oauth2",
-            "flow": "implicit",
-            "authorizationUrl": "/oauth2/authorize"
-        }
-    },
-    "definitions": {
-        "Error": {
-            "properties": {
-                "code": {
-                    "type": "integer"
+      },
+      "post": {
+        "operationId": "CreateAccount",
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "username": {
+                  "type": "string"
                 },
-                "message": {
-                    "type": "string"
+                "password": {
+                  "type": "string"
                 },
-                "moreInfo": {
-                    "type": "string"
-                }
-            }
-        },
-        "Account": {
-            "properties": {
                 "accountId": {
-                    "type": "integer"
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}": {
+      "get": {
+        "operationId": "GetAccount",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "accountId": {
+                  "type": "number",
+                  "format": "int32"
                 },
                 "accountName": {
-                    "type": "string"
+                  "type": "string"
                 },
-                "accountCurrency": {
-                    "type": "string"
+                "balance": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "unrealizedPl": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "realizedPl": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "marginUsed": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "marginAvail": {
+                  "type": "number",
+                  "format": "int64"
+                },
+                "openTrades": {
+                  "type": "number",
+                  "format": "int64"
+                },
+                "openOrders": {
+                  "type": "number",
+                  "format": "int64"
                 },
                 "marginRate": {
-                    "type": "number"
+                  "type": "number",
+                  "format": "double"
+                },
+                "accountCurrency": {
+                  "type": "string"
                 }
+              }
             }
-        },
-        "Instrument": {
-            "properties": {
-                "instrument": {
-                    "type": "string"
-                },
-                "displayName": {
-                    "type": "string"
-                },
-                "pip": {
-                    "type": "number"
-                },
-                "maxTradeUnits": {
-                    "type": "number"
-                }
-            }
-        },
-        "Price": {
-            "properties": {
-                "instrument": {
-                    "type": "string"
-                },
-                "time": {
-                    "type": "string"
-                },
-                "bid": {
-                    "type": "number"
-                },
-                "ask": {
-                    "type": "number"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "Candle": {
-            "properties": {
-                "time": {
-                    "type": "string"
-                }
-            }
+          }
         }
+      }
+    },
+    "/instruments": {
+      "get": {
+        "operationId": "GetInstruments",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "instruments",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "instruments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Instrument"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/prices": {
+      "get": {
+        "operationId": "GetPrices",
+        "parameters": [
+          {
+            "name": "instruments",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "prices": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Price"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/candles": {
+      "get": {
+        "operationId": "GetCandles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "candles": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Candle"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "instrument",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "candleFormat",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "includeFirst",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "dailyAlignment",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "alignmentTimezone",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "weeklyAlignment",
+            "in": "query",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/accounts/{account_id}/orders": {
+      "post": {
+        "operationId": "CreateOrder",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/orders/{order_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "account_id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+         },
+         {
+          "in": "path",
+          "name": "order_id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "get": {
+        "operationId": "GetInformationForOrder",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }  
+      },
+      "delete": {
+        "operationId": "DeleteOrder",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/trades": {
+      "get": {
+        "operationId": "GetOpenTrades",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/trades/{trade_id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "account_id",
+          "required": true,
+          "type": "integer",
+        },
+        {
+          "in": "path",
+          "name": "trade_id",
+          "required": true,
+          "type": "integer",
+        }
+      ],
+      "patch": {
+        "operationId": "ModifyTrade",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }  
+      },
+      "get": {
+        "operationId": "GetInformationForTrade",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }, 
+      "delete": {
+        "operationId": "CloseOpenTrade",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/positions": {
+      "get": {
+        "operationId": "GetOpenPositions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/positions/{instrument}": {
+      "get": {
+        "operationId": "GetPositionForInstrument",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          },
+          {
+            "in": "path",
+            "name": "instrument",
+            "required": true,
+            "type": "string",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ClosePositionForInstrument",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          },
+          {
+            "in": "path",
+            "name": "instrument",
+            "required": true,
+            "type": "string",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/transactions": {
+      "get": {
+        "operationId": "GetTransactionHistory",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/transactions/{transaction_id}": {
+      "get": {
+        "operationId": "GetInformationForTransaction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          },
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "type": "string",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+    },
+    "/accounts/{account_id}/alltransactions": {
+      "get": {
+        "operationId": "GetFullTransactionsHistory",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "account_id",
+            "required": true,
+            "type": "integer",
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
     }
+  },
+  "security": [
+    {
+      "oandaAccessToken": []
+    }
+  ],
+  "securityDefinitions": {
+    "oandaAccessToken": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "/oauth2/authorize"
+    }
+  },
+  "definitions": {
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "moreInfo": {
+          "type": "string"
+        }
+      }
+    },
+    "Account": {
+      "properties": {
+        "accountId": {
+          "type": "integer"
+        },
+        "accountName": {
+          "type": "string"
+        },
+        "accountCurrency": {
+          "type": "string"
+        },
+        "marginRate": {
+          "type": "number"
+        }
+      }
+    },
+    "Instrument": {
+      "properties": {
+        "instrument": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "pip": {
+          "type": "number"
+        },
+        "maxTradeUnits": {
+          "type": "number"
+        }
+      }
+    },
+    "Price": {
+      "properties": {
+        "instrument": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "bid": {
+          "type": "number"
+        },
+        "ask": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Candle": {
+      "properties": {
+        "time": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
