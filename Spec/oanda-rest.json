@@ -2,20 +2,15 @@
   "swagger": "2.0",
   "info": {
     "version": "0.0.1",
-    "title": "Oanda Rest API (Practice)"
+    "title": "Oanda Rest API"
   },
-  "host": "api-fxpractice.oanda.com",
-  "schemes": [
-    "https"
-  ],
-  "basePath": "/v1",
   "produces": [
     "application/json"
   ],
   "paths": {
-    "/accounts": {
+    "/v1/accounts": {
       "get": {
-        "operationId": "Getccounts",
+        "operationId": "getAccounts",
         "parameters": [
           {
             "name": "username",
@@ -25,28 +20,28 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "accounts": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Account"
+                    "$ref": "#/definitions/accountModel"
                   }
                 }
               }
             }
           },
           "default": {
-            "description": "Error",
+            "description": "error",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/errorModel"
             }
           }
         }
       },
       "post": {
-        "operationId": "CreateAccount",
+        "operationId": "createAccount",
         "parameters": [
           {
             "name": "currency",
@@ -56,7 +51,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "username": {
@@ -72,21 +67,21 @@
             }
           },
           "default": {
-            "description": "Error",
+            "description": "error",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/errorModel"
             }
           }
         }
       }
     },
-    "/accounts/{account_id}": {
+    "/v1/accounts/{accountId}": {
       "get": {
         "operationId": "GetAccount",
         "parameters": [
           {
             "in": "path",
-            "name": "account_id",
+            "name": "accountId",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -94,7 +89,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "accountId": {
@@ -105,20 +100,16 @@
                   "type": "string"
                 },
                 "balance": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "number"
                 },
                 "unrealizedPl": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "number"
                 },
                 "realizedPl": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "number"
                 },
                 "marginUsed": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "number"
                 },
                 "marginAvail": {
                   "type": "number",
@@ -129,12 +120,10 @@
                   "format": "int64"
                 },
                 "openOrders": {
-                  "type": "number",
-                  "format": "int64"
+                  "type": "number"
                 },
                 "marginRate": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "number"
                 },
                 "accountCurrency": {
                   "type": "string"
@@ -145,7 +134,7 @@
         }
       }
     },
-    "/instruments": {
+    "/v1/instruments": {
       "get": {
         "operationId": "GetInstruments",
         "parameters": [
@@ -168,28 +157,28 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "instruments": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Instrument"
+                    "$ref": "#/definitions/instrumentModel"
                   }
                 }
               }
             }
           },
           "default": {
-            "description": "Error",
+            "description": "error",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/errorModel"
             }
           }
         }
       }
     },
-    "/prices": {
+    "/v1/prices": {
       "get": {
         "operationId": "GetPrices",
         "parameters": [
@@ -207,13 +196,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "prices": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Price"
+                    "$ref": "#/definitions/priceModel"
                   }
                 }
               }
@@ -222,18 +211,18 @@
         }
       }
     },
-    "/candles": {
+    "/v1/candles": {
       "get": {
         "operationId": "GetCandles",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "success",
             "schema": {
               "properties": {
                 "candles": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Candle"
+                    "$ref": "#/definitions/candleModel"
                   }
                 }
               }
@@ -290,13 +279,13 @@
         ]
       }
     },
-    "/accounts/{account_id}/orders": {
+    "/v1/accounts/{accountId}/orders": {
       "post": {
         "operationId": "CreateOrder",
         "parameters": [
           {
             "in": "path",
-            "name": "account_id",
+            "name": "accountId",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -304,23 +293,23 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success"
           }
         }
       }
     },
-    "/accounts/{account_id}/orders/{order_id}": {
+    "/v1/accounts/{accountId}/orders/{orderId}": {
       "parameters": [
         {
           "in": "path",
-          "name": "account_id",
+          "name": "accountId",
           "required": true,
           "type": "integer",
           "format": "int64"
          },
          {
           "in": "path",
-          "name": "order_id",
+          "name": "orderId",
           "required": true,
           "type": "integer",
           "format": "int64"
@@ -343,7 +332,7 @@
         }
       }
     },
-    "/accounts/{account_id}/trades": {
+    "/v1/accounts/{account_id}/trades": {
       "get": {
         "operationId": "GetOpenTrades",
         "parameters": [
@@ -361,7 +350,7 @@
         }
       }
     },
-    "/accounts/{account_id}/trades/{trade_id}": {
+    "/v1/accounts/{account_id}/trades/{trade_id}": {
       "parameters": [
         {
           "in": "path",
@@ -401,7 +390,7 @@
         }
       }
     },
-    "/accounts/{account_id}/positions": {
+    "/v1/accounts/{account_id}/positions": {
       "get": {
         "operationId": "GetOpenPositions",
         "parameters": [
@@ -419,7 +408,7 @@
         }
       }
     },
-    "/accounts/{account_id}/positions/{instrument}": {
+    "/v1/accounts/{account_id}/positions/{instrument}": {
       "get": {
         "operationId": "GetPositionForInstrument",
         "parameters": [
@@ -465,7 +454,7 @@
         }
       }
     },
-    "/accounts/{account_id}/transactions": {
+    "/v1/accounts/{account_id}/transactions": {
       "get": {
         "operationId": "GetTransactionHistory",
         "parameters": [
@@ -483,7 +472,7 @@
         }
       }
     },
-    "/accounts/{account_id}/transactions/{transaction_id}": {
+    "/v1/accounts/{account_id}/transactions/{transaction_id}": {
       "get": {
         "operationId": "GetInformationForTransaction",
         "parameters": [
@@ -507,7 +496,7 @@
         }
       },
     },
-    "/accounts/{account_id}/alltransactions": {
+    "/v1/accounts/{account_id}/alltransactions": {
       "get": {
         "operationId": "GetFullTransactionsHistory",
         "parameters": [
@@ -517,6 +506,18 @@
             "required": true,
             "type": "integer",
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+    },
+	"/labs/v1/calendar": {
+      "get": {
+        "operationId": "GetCalendar",
+        "parameters": [
         ],
         "responses": {
           "200": {
@@ -539,7 +540,7 @@
     }
   },
   "definitions": {
-    "Error": {
+    "errorModel": {
       "properties": {
         "code": {
           "type": "integer"
@@ -552,8 +553,14 @@
         }
       }
     },
-    "Account": {
+    "accountModel": {
       "properties": {
+	    "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
         "accountId": {
           "type": "integer"
         },
@@ -565,10 +572,31 @@
         },
         "marginRate": {
           "type": "number"
+        },
+        "balance": {
+          "type": "number",
+        },		
+        "unrealizedPl": {
+          "type": "number",
+        },
+        "realizedPl": {
+          "type": "number",
+        },
+        "marginUsed": {
+          "type": "number",
+        },
+        "marginAvail": {
+          "type": "number",
+        },
+        "openTrades": {
+          "type": "number",
+        },
+        "openOrders": {
+          "type": "number",
         }
       }
     },
-    "Instrument": {
+    "instrumentModel": {
       "properties": {
         "instrument": {
           "type": "string"
@@ -581,16 +609,32 @@
         },
         "maxTradeUnits": {
           "type": "number"
+        },
+	    "precision": {
+          "type": "number"
+        },
+	    "maxTrailingStop": {
+          "type": "number"
+        },
+	    "minTrailingStop": {
+          "type": "number"
+        },
+	    "marginRate": {
+          "type": "number"
+        },
+	    "halted": {
+          "type": "boolean"
         }
-      }
+	  }
     },
-    "Price": {
+    "priceModel": {
       "properties": {
         "instrument": {
           "type": "string"
         },
         "time": {
-          "type": "string"
+          "type": "string",
+		  "format": "date-time"
         },
         "bid": {
           "type": "number"
@@ -603,10 +647,68 @@
         }
       }
     },
-    "Candle": {
+	"tradeModel": {},
+	"positionModel": {
+	  "properties": {
+        "instrument": {
+	      "type": "string",
+        },
+        "units": {
+	      "type": "number",
+        },
+        "side": {
+	      "type": "string",
+        },
+        "avgPrice": {
+	      "type": "number",
+        }
+	  }
+	},
+    "candleModel": {
       "properties": {
         "time": {
-          "type": "string"
+	      "type": "string",
+          "format": "date-time"
+        },
+        "volume": {
+	      "type": "integer",
+          "format": "int64"
+        },
+        "complete": {
+	      "type": "boolean",
+        },
+        "openMid": {
+	      "type": "number",
+        },
+        "highMid": {
+	      "type": "number",
+        },
+        "lowMid": {
+	      "type": "number",
+        },
+        "openBid": {
+	      "type": "number",
+        },
+        "highBid": {
+	      "type": "number",
+        },
+        "lowBid": {
+	      "type": "number",
+        },
+        "closeBid": {
+	      "type": "number",
+        },
+        "openAsk": {
+	      "type": "number",
+        },
+        "highAsk": {
+	      "type": "number",
+        },
+	    "lowAsk": {
+	      "type": "number",
+        },
+	    "closeAsk": {
+	      "type": "number",
         }
       }
     }

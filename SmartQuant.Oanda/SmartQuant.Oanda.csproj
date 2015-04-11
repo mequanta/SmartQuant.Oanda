@@ -41,17 +41,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Oanda.Rest.Generated\Models\Account.cs" />
-    <Compile Include="Oanda.Rest.Generated\Models\Error.cs" />
-    <Compile Include="Oanda.Rest\OandaRestAPIExtensions.cs" />
     <Compile Include="OandaRest.cs" />
+    <Compile Include="Oanda.Rest\Client.cs" />
+    <Compile Include="Oanda.Rest\Client.Generated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Oanda.Rest.Generated\" />
     <Folder Include="Oanda.Rest\" />
   </ItemGroup>
 </Project>
