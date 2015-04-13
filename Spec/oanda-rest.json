@@ -517,8 +517,6 @@
 	"/labs/v1/calendar": {
       "get": {
         "operationId": "GetCalendar",
-        "parameters": [
-        ],
         "responses": {
           "200": {
             "description": "OK"
