@@ -34,6 +34,7 @@
     <Reference Include="SmartQuant">
       <HintPath>..\Dlls\SmartQuant.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
